@@ -150,6 +150,8 @@ Verás que inmediatamente nuestra lista renderiza dos items que dicen Hello, per
 
 ![paso3-two-items-flatlist](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step3/workshop-images/paso3-two-items-flatlist.png "paso3-two-items-flatlist")
 
+## Creando nuestro componente de list item
+
 Ahora lo que queremos es que se vean los ejercicios correctamente,
 para ello vamos a modificar el componente exercise-list-item para que luzca de la siguiente manera:
 
