@@ -24,11 +24,11 @@ Generated new files:
 Esta pantalla estará vacía y no podemos navegar a ella, ¿Como se verá entonces?
 
 Queremos pasar de este flujo (flujo actual):
-![paso2-flow](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/main/workshop-images/paso2-flow.png "paso2-flow")
+![paso2-flow](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step2/workshop-images/paso2-flow.png "paso2-flow")
 
 A este nuevo Flujo:
 
-![paso2-flow1](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/main/workshop-images/paso2-flow1.png "paso2-flow1")
+![paso2-flow1](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step2/workshop-images/paso2-flow1.png "paso2-flow1")
 
 ## Conectando tu pantalla al navegador
 
