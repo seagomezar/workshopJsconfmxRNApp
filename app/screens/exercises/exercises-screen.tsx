@@ -7,6 +7,7 @@ import {
   Header,
   Screen,
   GradientBackground,
+  ExerciseListContainer,
 } from "../../components"
 import { color, spacing, typography } from "../../theme"
 import { NavigatorParamList } from "../../navigators"
@@ -52,6 +53,72 @@ const FOOTER_CONTENT: ViewStyle = {
   paddingHorizontal: spacing[4],
 }
 
+export interface Exercise {
+  name: string
+  force: string
+  level: string
+  mechanic: string
+  equipment: string
+  primaryMuscles: string[]
+  secondaryMuscles: any[]
+  instructions: string[]
+  category: string
+  images: string[]
+  id: string
+}
+
+const exercises: Exercise[] = [
+  {
+    "name": "3/4 Sit-Up",
+    "force": "pull",
+    "level": "beginner",
+    "mechanic": "compound",
+    "equipment": "body only",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "instructions": [
+      "Lie down on the floor and secure your feet. Your legs should be bent at the knees.",
+      "Place your hands behind or to the side of your head. You will begin with your back on the ground. This will be your starting position.",
+      "Flex your hips and spine to raise your torso toward your knees.",
+      "At the top of the contraction your torso should be perpendicular to the ground. Reverse the motion, going only Â¾ of the way down.",
+      "Repeat for the recommended amount of repetitions."
+    ],
+    "category": "strength",
+    "images": [
+      "3_4_Sit-Up_1.jpg",
+      "3_4_Sit-Up_2.jpg"
+    ],
+    "id": "3_4_Sit-Up"
+  },
+  {
+    "name": "90/90 Hamstring",
+    "force": "push",
+    "level": "beginner",
+    "mechanic": null,
+    "equipment": "body only",
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [
+      "calves"
+    ],
+    "instructions": [
+      "Lie on your back, with one leg extended straight out.",
+      "With the other leg, bend the hip and knee to 90 degrees. You may brace your leg with your hands if necessary. This will be your starting position.",
+      "Extend your leg straight into the air, pausing briefly at the top. Return the leg to the starting position.",
+      "Repeat for 10-20 repetitions, and then switch to the other leg."
+    ],
+    "category": "stretching",
+    "images": [
+      "90_90_Hamstring_1.jpg",
+      "90_90_Hamstring_2.jpg"
+    ],
+    "id": "90_90_Hamstring"
+  }
+]
+
 export const ExercisesScreen: FC<StackScreenProps<NavigatorParamList, "exercises">> = observer(
   ({ navigation }) => {
     const nextScreen = () => navigation.navigate("demo")
@@ -59,7 +126,7 @@ export const ExercisesScreen: FC<StackScreenProps<NavigatorParamList, "exercises
     return (
       <View testID="ExercisesScreen" style={FULL}>
         <GradientBackground colors={["#422443", "#281b34"]} />
-          <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
+          <Screen style={CONTAINER} preset="fixed" backgroundColor={color.transparent}>
             <Header
               headerTx="exercisesScreen.title"
               style={HEADER}
@@ -69,6 +136,7 @@ export const ExercisesScreen: FC<StackScreenProps<NavigatorParamList, "exercises
               }}
               titleStyle={HEADER_TITLE}
             />
+            <ExerciseListContainer exercises={exercises} />
           </Screen>
           <SafeAreaView style={FOOTER}>
             <View style={FOOTER_CONTENT}>

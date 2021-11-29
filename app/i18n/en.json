@@ -41,5 +41,11 @@
   "storybook": {
     "placeholder": "Placeholder",
     "field": "Field"
+  },
+  "components": {
+    "exerciseListItem": {
+      "muscle": "Muscle: ",
+      "kind": "Category: "
+    }
   }
 }

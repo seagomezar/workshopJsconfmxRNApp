@@ -1,173 +1,283 @@
-# El paso 2
-
-Como te diste cuenta hay muchas funcionalidades chéveres que vienen con este Boilerplate en este segundo paso te voy a enseñar a usar el generador que viene integrado junto con el Boilerplate.
+# El paso 3
 
 ## Usando el Ignite Cli Generator
+Igualmente que como hicimos en el paso anterior vamos a generar nuestro primer componente, ya te imaginarás que el boilerplate te ayuda no solo a generar screens sino también componentes! Y como te dije el objetivo de la pagina de ejercicios o "exercises screen" se encargará de mostrar una lista de ejercicios para que el usuario pueda libremente buscar, ver y reproducir ejercicios para si entrenamiento en el Gimnasio. 🏋🏻‍♀️ 💪.
 
-¿Qué harías si tuvieras que crear una pantalla similar a la "welcome screen"? ¿Como empezarías? ¿Duplicarías la carpeta? copiarías todo el código?, Bien! todas las respuestas son correctas tendríamos que hacer mucho trabajo con grandes probablididades de equivocarnos. Es por esto que el boilerplate viene con su generador de Screens, Components y Navigators y Models, sí todo eso junto disponible con un solo comando.
+## Creación de los componentes
 
-Lo único que debes hacer es invocar al generador para que te ayude con eso:
-
-```bash
-npx ignite-cli generate screen exercises
-```
-
-Así es vamos a generar una nueva pantalla llamada exercises donde vamos a mostrar (más adelante una lista de ejercicios, seremos muy fitness en esta aplicación).
-
-Si el comando te funcionó bien deberás tener en tu consola algo como esto:
+Toda lista debe estar compuesta al menos de dos componentes, el primero es un componente contenedor que debe tener el componente más popular y utilizado de React Native las flatlists y luego un componente que se encarga de renderizar el item de la lista en si mismo, entonces vamos a generar dos componentes:
 
 ```bash
-Generated new files:
- ../workshopJsconfmxRNApp/app/screens/exercises/exercises-screen.tsx
+npx ignite-cli generate component exercise-list-container
+npx ignite-cli generate component exercise-list-item
 ```
 
-Esta pantalla estará vacía y no podemos navegar a ella, ¿Como se verá entonces?
+## Creando nuestro componente contenedor
 
-Queremos pasar de este flujo (flujo actual):
-![paso2-flow](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step2/workshop-images/paso2-flow.png "paso2-flow")
-
-A este nuevo Flujo:
-
-![paso2-flow1](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step2/workshop-images/paso2-flow1.png "paso2-flow1")
-
-## Conectando tu pantalla al navegador
-
-Lo primero que debes hacer es añadir la pantalla creada al navegador. Esto es fácil solo modifica el /navigators/app-navigator.tsx para que la incluya:
+Vamos a insertar en nuestra pantalla el componente exercise-list-container y vamos a enviarle un arreglo de ejercicios, por ahora vamos a hardcodear un par de ejercicios en esta pantalla y vamos a escribirle un par de ellos y a enviarlo por props, primero definamos el ejercicio, que atributos tendrá:
 
 ```ts script
-/** ... */
-import { WelcomeScreen, DemoScreen, DemoListScreen, ExercisesScreen } from "../screens"
-/** ... */
-export type NavigatorParamList = {
-  welcome: undefined
-  demo: undefined
-  demoList: undefined
-  exercises: undefined
+export interface Exercise {
+  name: string
+  force: string
+  level: string
+  mechanic: string
+  equipment: string
+  primaryMuscles: string[]
+  secondaryMuscles: any[]
+  instructions: string[]
+  category: string
+  images: string[]
+  id: string
 }
-/** ... */
-<Stack.Screen name="demoList" component={DemoListScreen} />
-<Stack.Screen name="exercises" component={ExercisesScreen} />
-/** ... */
 ```
 
-Ahora en nuestra Welcome Screen necesitamos que al hacer click en continuar seamos redirigidos a la pantalla de exercises, simplemente vamos a modificar el metodo nextScreen:
+Luego creemos un par de ejercicios:
 
 ```ts script
-const nextScreen = () => navigation.navigate("exercises")
+const exercises: Exercise[] = [
+{
+  "name": "3/4 Sit-Up",
+  "force": "pull",
+  "level": "beginner",
+  "mechanic": "compound",
+  "equipment": "body only",
+  "primaryMuscles": [
+    "abdominals"
+  ],
+  "secondaryMuscles": [],
+  "instructions": [
+    "Lie down on the floor and secure your feet. Your legs should be bent at the knees.",
+    "Place your hands behind or to the side of your head. You will begin with your back on the ground. This will be your starting position.",
+    "Flex your hips and spine to raise your torso toward your knees.",
+    "At the top of the contraction your torso should be perpendicular to the ground. Reverse the motion, going only Â¾ of the way down.",
+    "Repeat for the recommended amount of repetitions."
+  ],
+  "category": "strength",
+  "images": [
+    "3_4_Sit-Up_1.jpg",
+    "3_4_Sit-Up_2.jpg"
+  ],
+  "id": "3_4_Sit-Up"
+},
+{
+  "name": "90/90 Hamstring",
+  "force": "push",
+  "level": "beginner",
+  "mechanic": null,
+  "equipment": "body only",
+  "primaryMuscles": [
+    "hamstrings"
+  ],
+  "secondaryMuscles": [
+    "calves"
+  ],
+  "instructions": [
+    "Lie on your back, with one leg extended straight out.",
+    "With the other leg, bend the hip and knee to 90 degrees. You may brace your leg with your hands if necessary. This will be your starting position.",
+    "Extend your leg straight into the air, pausing briefly at the top. Return the leg to the starting position.",
+    "Repeat for 10-20 repetitions, and then switch to the other leg."
+  ],
+  "category": "stretching",
+  "images": [
+    "90_90_Hamstring_1.jpg",
+    "90_90_Hamstring_2.jpg"
+  ],
+  "id": "90_90_Hamstring"
+}
+]
 ```
 
-Y finalmente escribamos en nuestra pantalla un botón para continuar a la demo screen y otro para regresar a la welcome screen.
-
-Así debería quedar tu Exercises Screen:
+y Luego desde nuestra exercises screen coloquemos el componente de exercise-list-container:
 
 ```tsx script
-import React, { FC } from "react"
-import { View, ViewStyle, TextStyle, SafeAreaView } from "react-native"
-import { StackScreenProps } from "@react-navigation/stack"
-import { observer } from "mobx-react-lite"
-import {
-  Button,
-  Header,
-  Screen,
-  GradientBackground,
-} from "../../components"
-import { color, spacing, typography } from "../../theme"
-import { NavigatorParamList } from "../../navigators"
-
-const FULL: ViewStyle = { flex: 1 }
-const CONTAINER: ViewStyle = {
-  backgroundColor: color.transparent,
-  paddingHorizontal: spacing[4],
-}
-const TEXT: TextStyle = {
-  color: color.palette.white,
-  fontFamily: typography.primary,
-}
-const BOLD: TextStyle = { fontWeight: "bold" }
-const HEADER: TextStyle = {
-  paddingTop: spacing[3],
-  paddingBottom: spacing[4] + spacing[1],
-  paddingHorizontal: 0,
-}
-const HEADER_TITLE: TextStyle = {
-  ...TEXT,
-  ...BOLD,
-  fontSize: 12,
-  lineHeight: 15,
-  textAlign: "center",
-  letterSpacing: 1.5,
-}
-
-const CONTINUE: ViewStyle = {
-  paddingVertical: spacing[4],
-  paddingHorizontal: spacing[4],
-  backgroundColor: color.palette.deepPurple,
-}
-const CONTINUE_TEXT: TextStyle = {
-  ...TEXT,
-  ...BOLD,
-  fontSize: 13,
-  letterSpacing: 2,
-}
-const FOOTER: ViewStyle = { backgroundColor: "#20162D" }
-const FOOTER_CONTENT: ViewStyle = {
-  paddingVertical: spacing[4],
-  paddingHorizontal: spacing[4],
-}
-
-export const ExercisesScreen: FC<StackScreenProps<NavigatorParamList, "exercises">> = observer(
-  ({ navigation }) => {
-    const nextScreen = () => navigation.navigate("demo")
-
-    return (
-      <View testID="ExercisesScreen" style={FULL}>
-        <GradientBackground colors={["#422443", "#281b34"]} />
-          <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
-            <Header
-              headerTx="exercisesScreen.title"
-              style={HEADER}
-              leftIcon="back"
-              onLeftPress={()=>{
-                navigation.goBack()
-              }}
-              titleStyle={HEADER_TITLE}
-            />
-          </Screen>
-          <SafeAreaView style={FOOTER}>
-            <View style={FOOTER_CONTENT}>
-              <Button
-                testID="next-screen-button"
-                style={CONTINUE}
-                textStyle={CONTINUE_TEXT}
-                tx="welcomeScreen.continue"
-                onPress={nextScreen}
-              />
-            </View>
-          </SafeAreaView>
-      </View>
-    )
-  },
-)
-
+...
+<Screen style={CONTAINER} preset="fixed" backgroundColor={color.transparent}>
+  <Header
+    headerTx="exercisesScreen.title"
+    style={HEADER}
+    leftIcon="back"
+    onLeftPress={()=>{
+      navigation.goBack()
+    }}
+    titleStyle={HEADER_TITLE}
+  />
+  <ExerciseListContainer exercises={exercises} />
+</Screen>
+...
 ```
 
-Como te darás cuenta hemos casí que duplicado algunas de las funcionalidades de nuestra WelcomeScreen y hemos utilizado el componente header para añadir el título y la posibilidad de navegar hacia atrás.
+Algo importante de notar es que en vez que esta pantalla sea una
+pantalla de tipo scroll **preset="scroll"** será fija **preset="fixed", ya que lo que queremos es que lo único scrolleable sea nuestra lista de ejercicios.
+
+Ahora vamos a nuestro componente exercise-list-container, indiquemosle que va a recibir un arreglo de ejercicios y coloquemos una flat list para mostrar nuestros dos ejercicios:
+
+
+```tsx script
+import * as React from "react"
+import { FlatList, StyleProp, View, ViewStyle } from "react-native"
+import { observer } from "mobx-react-lite"
+import { flatten } from "ramda"
+import { Exercise } from "../../screens"
+import { ExerciseListItem } from ".."
+
+const CONTAINER: ViewStyle = {
+  justifyContent: "center",
+}
+
+export interface ExerciseListContainerProps {
+  style?: StyleProp<ViewStyle>
+  exercises: Exercise[]
+}
+
+export const ExerciseListContainer = observer(function ExerciseListContainer(props: ExerciseListContainerProps) {
+  const { style } = props
+  const styles = flatten([CONTAINER, style])
+
+  return (
+    <View style={styles}>
+      <FlatList
+        data={props.exercises}
+        keyExtractor={(item)=>item.id}
+        renderItem={({item})=><ExerciseListItem exercise={item}/>}
+      />
+    </View>
+  )
+})
+```
+
+Verás que inmediatamente nuestra lista renderiza dos items que dicen Hello, pero que en realidad en unos instantes serán dos ejercicios:
+
+![paso3-two-items-flatlist](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step3/workshop-images/paso3-two-items-flatlist.png "paso3-two-items-flatlist")
+
+Ahora lo que queremos es que se vean los ejercicios correctamente,
+para ello vamos a modificar el componente exercise-list-item para que luzca de la siguiente manera:
+
+```tsx script
+import * as React from "react"
+import {
+  Image,
+  ImageStyle,
+  StyleProp,
+  TextStyle,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from "react-native"
+import { observer } from "mobx-react-lite"
+import { color, spacing, typography } from "../../theme"
+import { Text } from "../text/text"
+import { flatten } from "ramda"
+import { Exercise } from "../../screens/exercises/exercises-screen"
+import { AutoImage } from ".."
+import { useNavigation } from "@react-navigation/native"
+
+const CONTAINER: ViewStyle = {
+  flexDirection: "row",
+  alignItems: "center",
+  width: "100%",
+  borderWidth: 1,
+  borderColor: color.line,
+  borderRadius: 10,
+  marginBottom: 10,
+}
+const TEXT_CONTAINER: ViewStyle = {
+  width: "50%",
+  flexShrink: 0,
+  flexGrow: 1,
+  paddingLeft: "5%",
+}
+const IMAGE_CONTAINER: ViewStyle = {
+  width: "50%",
+  flexShrink: 0,
+  flexGrow: 1,
+}
+const BOLD: TextStyle = { fontWeight: "bold" }
+const TEXT: TextStyle = {
+  fontFamily: typography.primary,
+  color: color.text,
+}
+
+const TEXT_TITLE: TextStyle = {
+  ...BOLD,
+  ...TEXT,
+  fontSize: 20,
+}
+
+const TEXT_DIM: TextStyle = {
+  ...TEXT,
+  marginBottom: 5,
+  color: color.dim,
+}
+
+const IMAGE: ImageStyle = {
+  alignSelf: "center",
+  marginVertical: spacing[5],
+  maxWidth: "100%",
+  width: 149,
+  height: 100,
+  borderRadius: 10,
+}
+
+export interface ExerciseListItemProps {
+  style?: StyleProp<ViewStyle>
+  exercise: Exercise
+}
+export const ExerciseListItem = observer(function ExerciseListItem(props: ExerciseListItemProps) {
+  const { style } = props
+  const styles = flatten([CONTAINER, style])
+  const navigation = useNavigation()
+
+  return (
+    <TouchableOpacity
+      style={styles}
+    >
+      <View style={TEXT_CONTAINER}>
+        <Text style={TEXT_TITLE}>{(props.exercise.name)}</Text>
+        <Text style={TEXT_DIM}>
+          <Text tx="components.exerciseListItem.muscle" />
+          {(props.exercise.primaryMuscles.join(""))}
+        </Text>
+        <Text style={TEXT_DIM}>
+          <Text tx="components.exerciseListItem.kind" />
+          {(props.exercise.category)}
+        </Text>
+      </View>
+      <View style={IMAGE_CONTAINER}>
+        <AutoImage
+          style={IMAGE}
+          source={{
+            uri: `https://raw.githubusercontent.com/seagomezar/Exercises-Compiled-Database/main/images/${props.exercise.images[0]}`,
+          }}
+        />
+      </View>
+    </TouchableOpacity>
+  )
+})
+```
+
+No te olvides de las traducciones:
+
+```json script
+"components": {
+  "exerciseListItem": {
+    "muscle": "Músculo: ",
+    "kind": "Tipo: "
+  }
+}
+```
+
+Si todo salió bien deberas poder ver la siguiente pantalla:
+
+![paso3-exercise-list-item](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step3/workshop-images/paso3-exercise-list-item.png "paso3-exercise-list-item")
+
+Es tu momento ve y juega un poco más con el componente, quisieras añadirle algo?
+
+¿Como lo hárias? Deja volar tu imaginación!
+
 
 ## Conclusiones
 
-Deberás tener una pantalla similar a esta al finalizar este paso..
+😉 Ha sido divertido! Por ahora te dejo el enlace al siguiente paso:
 
-![paso2-exercises-screen](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step2/workshop-images/paso2-exercises-screen.png "paso2-exercises-screen")
-
-Espera! ¿No es así? Seguro es porque te hace falta añadir las traducciones en inglés y en español para tu pantalla, algó así!
-
-```ts script
-"exercisesScreen": {
-  "title": "Exercises"
-},
-```
-
-😉 Espero hayas podido detectar el error, sino es así no te preocupes
-poco a poco iremos aprendiendo, por ahora te dejo el enlace al siguiente paso:
-
-[IR AL PASO 3 -->](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step3)
+[IR AL PASO 4 -->](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step4)
