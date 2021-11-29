@@ -185,4 +185,8 @@ i18n.locale = Localization.locale || "en"
 
 ## Conclusiones
 
+Si todo salió bien deberías estar viendo algo similar a esto:
+
+![paso2-welcom-screen-multilenguaje](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step1/workshop-images/paso2-welcom-screen-multilenguaje.png "paso2-welcom-screen-multilenguaje")
+
 Cambiar el lenguaje de tu aplicación resulta bastante sencillo y te permite manejar múltiples idiomas de manera simple e intuitiva. Sin embargo nota que tuvimos que re-renderizar nuestra screen para ver los cambios inmediatamente, de lo contrario solo hasta que por algún motivo se recargue nuestra pantalla es que podríamos ver las nuevas traducciones.
