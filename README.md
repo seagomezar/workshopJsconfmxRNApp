@@ -13,6 +13,13 @@ y el boilerplate más utilizado para desarrollar desde cero aplicaciones de reac
 mejor experiencia de desarrollo que conozco para desarrollar con
 React Native.
 
+##¿Qué debo tener instalado?
+
+Bien es una gran pregunta! Inicialmente debes tener instalado la versión LTS NodeJS y en segundo lugar debes tener instalado Expo Go en tu celular Android🤖 o iOS📱. (Whaaat?) Tranquilo, aquí te dejo los enlaces:
+
+- [NodeJs](https://nodejs.org/es/)
+- [Expo Go](https://expo.dev/client)
+
 ## ¿De quien es este Boilerplate?
 
 Este es un Boilerplate que utiliza [Infinite Red](https://infinite.red) para desarrollar todos sus proyectos de React Native, entre sus miembros se encuentran incluso integrantes del core de React Native, así que vale la pena entenderlo a profundidad.
@@ -119,7 +126,7 @@ npx ignite-cli new nombredetuproyecto --expo --bundle=com.tupaquete.tuproyecto
 
 Inmediatamente verías un mensaje en tu terminal como esta:
 
-Imagen de la terminal
+![paso1-terminal](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/main/workshop-images/paso1-terminal.png "paso1-terminal")
 
 - El comando que usé para crear este repo fue este:
 ````
@@ -138,8 +145,16 @@ Esto instalará todo y tendrás la aplicación más rapido y totalmente funciona
 
 ### ¿Como sabrás que todo quedó bien?
 
-Debes ejecutar dentro del proyecto yarn start y deberás ver una pantalla similar a esta:
+Debes ejecutar dentro del proyecto yarn start y deberás ver una pantalla similar a esta en tu navegador:
 
+![paso1-browser-expo](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/main/workshop-images/paso1-browser-expo.png "paso1-browser-expo")
 
+y finalmente si ya tienes instalado Expo Go en tu celular, escanea el código QR y esto es lo que deberías luego de un rato ver:
 
-IR AL PASO 2
+![paso1-welcome-screen](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/main/workshop-images/paso1-welcome-screen.png "paso1-welcome-screen")
+
+![paso1-demo-screen](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/main/workshop-images/paso1-demo-screen.png "paso1-demo-screen")
+
+![paso1-demolist-screen](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/main/workshop-images/paso1-demolist-screen.png "paso1-demolist-screen")
+
+[IR AL PASO 1 -->](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step1)
