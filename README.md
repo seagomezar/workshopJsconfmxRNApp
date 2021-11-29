@@ -119,6 +119,7 @@ npx ignite-cli new nombredetuproyecto --expo --bundle=com.tupaquete.tuproyecto
 
 Inmediatamente verías un mensaje en tu terminal como esta:
 
+Imagen de la terminal
 
 - El comando que usé para crear este repo fue este:
 ````
@@ -134,5 +135,11 @@ yarn
 ```
 
 Esto instalará todo y tendrás la aplicación más rapido y totalmente funcional. Ahora bien es tu turno ¿Que quieres hacer? y te veo en el paso 2.
+
+### ¿Como sabrás que todo quedó bien?
+
+Debes ejecutar dentro del proyecto yarn start y deberás ver una pantalla similar a esta:
+
+
 
 IR AL PASO 2
