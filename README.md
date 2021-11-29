@@ -157,7 +157,7 @@ Como te darás cuenta hemos casí que duplicado algunas de las funcionalidades d
 
 Deberás tener una pantalla similar a esta al finalizar este paso..
 
-![paso2-exercises-screen](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step2/workshop-images/paso2-exercises-screen.png "paso2-exercises-screen"
+![paso2-exercises-screen](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step2/workshop-images/paso2-exercises-screen.png "paso2-exercises-screen")
 
 Espera! ¿No es así? Seguro es porque te hace falta añadir las traducciones en inglés y en español para tu pantalla, algó así!
 
