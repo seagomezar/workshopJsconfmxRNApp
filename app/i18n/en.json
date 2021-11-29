@@ -10,7 +10,9 @@
   "welcomeScreen": {
     "poweredBy": "POWERED BY IGNITE",
     "readyForLaunch": "Ready for launch.",
-    "continue": "CONTINUE"
+    "continue": "CONTINUE",
+    "lang": "Yo hablo español 🇲🇽"
+
   },
   "demoScreen": {
     "howTo": "HOW TO",
