@@ -4,5 +4,8 @@
     "readyForLaunch": "Estamos listos para desplegar",
     "continue": "Continuar",
     "lang": "I speak english 🇺🇸"
+  },
+  "exercisesScreen": {
+    "title": "Ejercicios"
   }
 }

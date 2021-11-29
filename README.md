@@ -1,74 +1,78 @@
-## El paso 1
+# El paso 2
 
-Si todo andó bien, estarás ansioso por empezar, lo primero de lo primero que te quiero enseñar es a hacer tu app multilenguaje, Si! Leíste bien, **multilenguaje** esa funcionalidad tremendamente grande y difícil que alguna vez tendrás que hacer en algún proyecto, y te darás cuenta que no es sencillo.
+Como te diste cuenta hay muchas funcionalidades chéveres que vienen con este Boilerplate en este segundo paso te voy a enseñar a usar el generador que viene integrado junto con el Boilerplate.
 
-Sin embargo te cuento que con el Ignite Boilerplate (este boilerplate) esta funcionalidad ya viene resuelta y completamente lista para ser utilizada e implementada de una manera fácil.
+## Usando el Ignite Cli Generator
 
-### Encuentra los archivos de traducción
+¿Qué harías si tuvieras que crear una pantalla similar a la "welcome screen"? ¿Como empezarías? ¿Duplicarías la carpeta? copiarías todo el código?, Bien! todas las respuestas son correctas tendríamos que hacer mucho trabajo con grandes probablididades de equivocarnos. Es por esto que el boilerplate viene con su generador de Screens, Components y Navigators y Models, sí todo eso junto disponible con un solo comando.
 
-Normalmente estos archivos se encuentra en ./app/i18n/
-allí verás que por defecto vienen dos archivos: en.json y ja.json
-que hacen referencia a inglés y japones. Como personalmente yo no sé japones prefiero que trabajemos en inglés y español. ¿Te parece?
+Lo único que debes hacer es invocar al generador para que te ayude con eso:
 
-### Substituye o crea el archivo es.json
-
-Renombra el archivo ja.json por **es.json** o si en un futuro quieres
-hacer las traducciones al japones simplemente déjalo y crea uno nuevo
-**es.json**
-
-### Crea un par de traducciones clave valor
-
-Vamos crear un par de traducciones te invito a que copies y pegues el siguiente código dentro del archivo es.json:
-
-```ts script
-{
-  "welcomeScreen": {
-    "poweredBy": "Patrocinado por la JSCONFMX",
-    "readyForLaunch": "Estamos listos para desplegar",
-    "continue": "Continuar",
-    "lang": "I speak english 🇺🇸"
-  }
-}
+```bash
+npx ignite-cli generate screen exercises
 ```
 
-Ahora en el archivo en.json añadé dentro de la welcome screen una
-línea que permita en caso de que tu usuario no hable inglés pueda entender que debe cambiar la aplicación a español:
+Así es vamos a generar una nueva pantalla llamada exercises donde vamos a mostrar (más adelante una lista de ejercicios, seremos muy fitness en esta aplicación).
 
-```ts script
-{
-  "welcomeScreen": {
-    "poweredBy": "Patrocinado por la JSCONFMX",
-    "readyForLaunch": "Estamos listos para desplegar",
-    "continue": "Continuar",
-    "lang": "I speak english 🇺🇸" /** <--- AQUI */
-  }
-}
+Si el comando te funcionó bien deberás tener en tu consola algo como esto:
+
+```bash
+Generated new files:
+ ../workshopJsconfmxRNApp/app/screens/exercises/exercises-screen.tsx
 ```
 
-### Cambiemos el contenido inicial de la welcome screen
+Esta pantalla estará vacía y no podemos navegar a ella, ¿Como se verá entonces?
 
-Ya has creado algunas traducciones para la welcomeScreen, así que
-porque no vamos a la ./app/screens/welcome/welcome-screen.tsx y reemplazamos el contenido por algo que este disponible en inglés y en español, nota que he añadido el logo de la jsconfmx en .png así que asegurate de tenerlo dentro de tu carpeta ./app/screens/welcome
-para ser utilizado. [Aquí está el enlace](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/main/app/screens/welcome):
+Queremos pasar de este flujo (flujo actual):
+![paso2-flow](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/main/workshop-images/paso2-flow.png "paso2-flow")
+
+A este nuevo Flujo:
+
+![paso2-flow1](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/main/workshop-images/paso2-flow1.png "paso2-flow1")
+
+## Conectando tu pantalla al navegador
+
+Lo primero que debes hacer es añadir la pantalla creada al navegador. Esto es fácil solo modifica el /navigators/app-navigator.tsx para que la incluya:
 
 ```ts script
-import React, { FC, useState } from "react"
-import { View, ViewStyle, TextStyle, ImageStyle, SafeAreaView } from "react-native"
+/** ... */
+import { WelcomeScreen, DemoScreen, DemoListScreen, ExercisesScreen } from "../screens"
+/** ... */
+export type NavigatorParamList = {
+  welcome: undefined
+  demo: undefined
+  demoList: undefined
+  exercises: undefined
+}
+/** ... */
+<Stack.Screen name="demoList" component={DemoListScreen} />
+<Stack.Screen name="exercises" component={ExercisesScreen} />
+/** ... */
+```
+
+Ahora en nuestra Welcome Screen necesitamos que al hacer click en continuar seamos redirigidos a la pantalla de exercises, simplemente vamos a modificar el metodo nextScreen:
+
+```ts script
+const nextScreen = () => navigation.navigate("exercises")
+```
+
+Y finalmente escribamos en nuestra pantalla un botón para continuar a la demo screen y otro para regresar a la welcome screen.
+
+Así debería quedar tu Exercises Screen:
+
+```tsx script
+import React, { FC } from "react"
+import { View, ViewStyle, TextStyle, SafeAreaView } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { observer } from "mobx-react-lite"
 import {
   Button,
   Header,
   Screen,
-  Text,
   GradientBackground,
-  AutoImage as Image,
 } from "../../components"
 import { color, spacing, typography } from "../../theme"
 import { NavigatorParamList } from "../../navigators"
-import I18n from "i18n-js"
-
-const jsconfLogo = require("./jsconfmx.png") // <-- ASEGURATE DE QUE ESTE
 
 const FULL: ViewStyle = { flex: 1 }
 const CONTAINER: ViewStyle = {
@@ -94,22 +98,6 @@ const HEADER_TITLE: TextStyle = {
   letterSpacing: 1.5,
 }
 
-const TITLE: TextStyle = {
-  ...TEXT,
-  ...BOLD,
-  fontSize: 28,
-  lineHeight: 38,
-  textAlign: "center",
-}
-
-const JSCONFLOGO: ImageStyle = {
-  alignSelf: "center",
-  marginVertical: spacing[5],
-  maxWidth: "100%",
-  width: 200,
-  height: 200,
-}
-
 const CONTINUE: ViewStyle = {
   paddingVertical: spacing[4],
   paddingHorizontal: spacing[4],
@@ -127,30 +115,23 @@ const FOOTER_CONTENT: ViewStyle = {
   paddingHorizontal: spacing[4],
 }
 
-export const WelcomeScreen: FC<StackScreenProps<NavigatorParamList, "welcome">> = observer(
+export const ExercisesScreen: FC<StackScreenProps<NavigatorParamList, "exercises">> = observer(
   ({ navigation }) => {
     const nextScreen = () => navigation.navigate("demo")
-    const [reload, setReload] = useState(false)
-    const changeLanguage = () => {
-      if (I18n.locale === "es-MX") {
-        I18n.locale = "en-UX"
-      } else {
-        I18n.locale = "es-MX"
-      }
-      setReload(true)
-      setTimeout(() => {
-        setReload(false)
-      }, 0)
-    }
+
     return (
-      <View testID="WelcomeScreen" style={FULL}>
+      <View testID="ExercisesScreen" style={FULL}>
         <GradientBackground colors={["#422443", "#281b34"]} />
-        {(!reload) ? <>
           <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
-            <Header headerTx="welcomeScreen.poweredBy" style={HEADER} titleStyle={HEADER_TITLE} />
-            <Text style={TITLE} preset="header" tx="welcomeScreen.readyForLaunch" />
-            <Image source={jsconfLogo} style={JSCONFLOGO} />
-            <Button tx="welcomeScreen.lang" onPress={changeLanguage} />
+            <Header
+              headerTx="exercisesScreen.title"
+              style={HEADER}
+              leftIcon="back"
+              onLeftPress={()=>{
+                navigation.goBack()
+              }}
+              titleStyle={HEADER_TITLE}
+            />
           </Screen>
           <SafeAreaView style={FOOTER}>
             <View style={FOOTER_CONTENT}>
@@ -163,32 +144,30 @@ export const WelcomeScreen: FC<StackScreenProps<NavigatorParamList, "welcome">> 
               />
             </View>
           </SafeAreaView>
-        </> : <></>}
       </View>
     )
   },
 )
+
 ```
 
-También debemos modificar el archivo ./app/i18n.ts para añadir nuestro nuevo idioma:
-
-```ts script
-import en from "./en.json"
-import ja from "./ja.json"
-import es from "./es.json"
-
-i18n.fallbacks = true
-i18n.translations = { en, ja, es }
-
-i18n.locale = Localization.locale || "en"
-```
+Como te darás cuenta hemos casí que duplicado algunas de las funcionalidades de nuestra WelcomeScreen y hemos utilizado el componente header para añadir el título y la posibilidad de navegar hacia atrás.
 
 ## Conclusiones
 
-Si todo salió bien deberías estar viendo algo similar a esto:
+Deberás tener una pantalla similar a esta al finalizar este paso..
 
-![paso2-welcom-screen-multilenguaje](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step1/workshop-images/paso2-welcom-screen-multilenguaje.png "paso2-welcom-screen-multilenguaje")
+![paso2-exercises-screen](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step2/workshop-images/paso2-exercises-screen.png "paso2-exercises-screen"
 
-Cambiar el lenguaje de tu aplicación resulta bastante sencillo y te permite manejar múltiples idiomas de manera simple e intuitiva. Sin embargo nota que tuvimos que re-renderizar nuestra screen para ver los cambios inmediatamente, de lo contrario solo hasta que por algún motivo se recargue nuestra pantalla es que podríamos ver las nuevas traducciones.
+Espera! ¿No es así? Seguro es porque te hace falta añadir las traducciones en inglés y en español para tu pantalla, algó así!
 
-## [IR AL PASO 2](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step2)
+```ts script
+"exercisesScreen": {
+  "title": "Exercises"
+},
+```
+
+😉 Espero hayas podido detectar el error, sino es así no te preocupes
+poco a poco iremos aprendiendo, por ahora te dejo el enlace al siguiente paso:
+
+[IR AL PASO 3 -->](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step3)

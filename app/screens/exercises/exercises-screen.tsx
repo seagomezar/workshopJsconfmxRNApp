@@ -1,20 +1,15 @@
-import React, { FC, useState } from "react"
-import { View, ViewStyle, TextStyle, ImageStyle, SafeAreaView } from "react-native"
+import React, { FC } from "react"
+import { View, ViewStyle, TextStyle, SafeAreaView } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { observer } from "mobx-react-lite"
 import {
   Button,
   Header,
   Screen,
-  Text,
   GradientBackground,
-  AutoImage as Image,
 } from "../../components"
 import { color, spacing, typography } from "../../theme"
 import { NavigatorParamList } from "../../navigators"
-import I18n from "i18n-js"
-
-const jsconfLogo = require("./jsconfmx.png")
 
 const FULL: ViewStyle = { flex: 1 }
 const CONTAINER: ViewStyle = {
@@ -40,22 +35,6 @@ const HEADER_TITLE: TextStyle = {
   letterSpacing: 1.5,
 }
 
-const TITLE: TextStyle = {
-  ...TEXT,
-  ...BOLD,
-  fontSize: 28,
-  lineHeight: 38,
-  textAlign: "center",
-}
-
-const JSCONFLOGO: ImageStyle = {
-  alignSelf: "center",
-  marginVertical: spacing[5],
-  maxWidth: "100%",
-  width: 200,
-  height: 200,
-}
-
 const CONTINUE: ViewStyle = {
   paddingVertical: spacing[4],
   paddingHorizontal: spacing[4],
@@ -73,30 +52,23 @@ const FOOTER_CONTENT: ViewStyle = {
   paddingHorizontal: spacing[4],
 }
 
-export const WelcomeScreen: FC<StackScreenProps<NavigatorParamList, "welcome">> = observer(
+export const ExercisesScreen: FC<StackScreenProps<NavigatorParamList, "exercises">> = observer(
   ({ navigation }) => {
-    const nextScreen = () => navigation.navigate("exercises")
-    const [reload, setReload] = useState(false)
-    const changeLanguage = () => {
-      if (I18n.locale === "es-MX") {
-        I18n.locale = "en-UX"
-      } else {
-        I18n.locale = "es-MX"
-      }
-      setReload(true)
-      setTimeout(() => {
-        setReload(false)
-      }, 0)
-    }
+    const nextScreen = () => navigation.navigate("demo")
+
     return (
-      <View testID="WelcomeScreen" style={FULL}>
+      <View testID="ExercisesScreen" style={FULL}>
         <GradientBackground colors={["#422443", "#281b34"]} />
-        {(!reload) ? <>
           <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
-            <Header headerTx="welcomeScreen.poweredBy" style={HEADER} titleStyle={HEADER_TITLE} />
-            <Text style={TITLE} preset="header" tx="welcomeScreen.readyForLaunch" />
-            <Image source={jsconfLogo} style={JSCONFLOGO} />
-            <Button tx="welcomeScreen.lang" onPress={changeLanguage} />
+            <Header
+              headerTx="exercisesScreen.title"
+              style={HEADER}
+              leftIcon="back"
+              onLeftPress={()=>{
+                navigation.goBack()
+              }}
+              titleStyle={HEADER_TITLE}
+            />
           </Screen>
           <SafeAreaView style={FOOTER}>
             <View style={FOOTER_CONTENT}>
@@ -109,7 +81,6 @@ export const WelcomeScreen: FC<StackScreenProps<NavigatorParamList, "welcome">> 
               />
             </View>
           </SafeAreaView>
-        </> : <></>}
       </View>
     )
   },

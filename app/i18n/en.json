@@ -14,6 +14,9 @@
     "lang": "Yo hablo español 🇲🇽"
 
   },
+  "exercisesScreen": {
+    "title": "Exercises"
+  },
   "demoScreen": {
     "howTo": "HOW TO",
     "title": "What’s In This Stack?",
