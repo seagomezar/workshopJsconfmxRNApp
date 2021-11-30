@@ -456,7 +456,9 @@ export function capitalizeFirstLetter(str: string): string {
 ```
 
 
-### Una última cosa hemos añadido y creado varios iconos como el de la estrella para favoritos, el de play o el de agregar! Te invito a que vayas y modifiques este componente añadiendo varios iconos que pueden ser de utilidad ./components/icon/icons/index.ts:
+### El componente de iconos ⚠️
+
+Una última cosa hemos añadido y creado varios iconos como el de la estrella para favoritos, el de play o el de agregar! Te invito a que vayas y modifiques este componente añadiendo varios iconos que pueden ser de utilidad ./components/icon/icons/index.ts:
 
 ```tsx script
 export const icons = {
@@ -488,7 +490,7 @@ export type IconTypes = keyof typeof icons
 
 [Aquí](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step4/app/components/icon/icons) encontrarás las imágenes solos debes descargarlas y colocarlas en la carpeta: ./components/icon/icons/index.ts
 
-### Añadiendo las traducciones
+### Añadiendo las traducciones 🇺🇲🇽
 
 Casí estamos listos como siempre mantener un aplicación multilenguaje cuesta un poco más. Pero no te rindas! Solo es añadir algunas traducciones para nuestros componentes:
 
