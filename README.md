@@ -1,4 +1,4 @@
-# El paso 6 🧹
+# Paso 6 - La limpieza definitiva 🧹
 
 Bien! No te has rendido hemos llegado al paso 6 para poder hacer que tu aplicación este lista es necesario que limpiemos los elementos innecesarios de nuestra aplicación.
 
@@ -35,9 +35,9 @@ yarn lint
 
 Deberás modificar algunos textos en algunos archivos de storybook pero nada que no entiendas en este momento.
 
-## Conclusiones
+## Conclusiones 📚
 
 Tu aplicación debe de estar funcionando bastante bien, ya no tienes archivos innecesarios y todo parece estar optimizado para que puedas
 pasar tu aplicación a producción
 
-[IR AL PASO 7 -->](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step6)
+## [IR AL PASO 7](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step6)
