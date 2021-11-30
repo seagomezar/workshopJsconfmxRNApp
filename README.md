@@ -71,8 +71,8 @@ Hemos llegado al fin!, espero que hayas disfrutado este workshop tanto como yo! 
 
 Eso es todo, Mil gracias
 
-[Te dejo mi sitio web](https://sebastian-gomez.com)
-[Te dejo mi canal de YouTube](https://www.youtube.com/watch?v=wNXUk00s5F4&t=70s)
-[Te dejo mi twitter](https://twitter.com/sebasgojs)
+- [Te dejo mi sitio web](https://sebastian-gomez.com)
+- [Te dejo mi canal de YouTube](https://www.youtube.com/watch?v=wNXUk00s5F4&t=70s)
+- [Te dejo mi twitter](https://twitter.com/sebasgojs)
 
 Y hasta la próxima.
