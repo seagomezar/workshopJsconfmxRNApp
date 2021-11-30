@@ -2,35 +2,29 @@
 # Bienvenido al workshop "Construye tu aplicación de React Native en 30 minutos" 🥳
 
 
+Hola! Soy Sebastian Gomez [@sebasgojs en twitter](https://twitter.com/sebasgojs) y trabajo en una empresa llamada [Globant](https://www.globant.com/) como Manager de Tecnología con enfoque en aplicaciones híbridas y cross compiladas! 🙃. Aquí puedes encontrar más información sobre mí:
 
-Hola! Soy Sebastian Gomez @sebasgojs en twitter y trabajo en una
-
-empresa llamada Globant como Manager de Tecnología con enfoque en
-
-aplicaciones híbridas y cross compiladas! 🙃.
+- 👨‍💻 [www.sebastian-gomez.com](https://sebastian-gomez.com)
+- �🎥� [Mi recientemente creado canal de youtube](https://www.youtube.com/watch?v=wNXUk00s5F4&t=70s)
 
 
-
-Espero que nos divirtamos mucho en este Workshop y te lleves la idea de buenas prácticas y como crear un base para tus proyectos de React Native.
-
+🔥 Espero que nos divirtamos mucho en este Workshop y te lleves la idea de buenas prácticas y como crear un base para tus proyectos de React Native.
 
 
-## ¿De qué se trata este workshop?
+## ¿De qué se trata este workshop? 🤲
+
+Bien, Mi objetivo no es otro que te familiarices con el Ignite-cli y el boilerplate más utilizado para desarrollar desde cero aplicaciones de react native pero, con buenas prácticas y con la mejor experiencia de desarrollo que conozco para desarrollar con React Native. Son un total de 7 pasos que completaremos en orden:
+
+- [PASO 1](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step1)
+- [PASO 2](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step2)
+- [PASO 3](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step3)
+- [PASO 4](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step4)
+- [PASO 5](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step5)
+- [PASO 6](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step6)
+- [PASO 7](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step7)
 
 
-
-Bien, Mi objetivo no es otro que te familiarices con el Ignite-cli
-
-y el boilerplate más utilizado para desarrollar desde cero aplicaciones de react native pero, con buenas prácticas y con la
-
-mejor experiencia de desarrollo que conozco para desarrollar con
-
-React Native.
-
-
-
-##¿Qué debo tener instalado?
-
+## ¿Qué debo tener instalado? 🍄
 
 
 Bien es una gran pregunta! Inicialmente debes tener instalado la versión LTS NodeJS y en segundo lugar debes tener instalado Expo Go en tu celular Android🤖 o iOS📱. (Whaaat?) Tranquilo, aquí te dejo los enlaces:
@@ -57,9 +51,7 @@ Aquí te dejo el enlace a la documentación oficial del proyecto:
 
 
 
-Y aquí te dejo un enlace a mi canal de YouTube donde explico
-
-en que consiste y el objetivo del mismo:
+Y aquí te dejo un enlace a mi canal de YouTube donde explico en que consiste y el objetivo del mismo:
 
 
 
@@ -303,6 +295,6 @@ y finalmente si ya tienes instalado Expo Go en tu celular, escanea el código QR
 
 ![paso1-demolist-screen](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/main/workshop-images/paso1-demolist-screen.png "paso1-demolist-screen")
 
+¿Estas listo? 
 
-
-[IR AL PASO 1 -->](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step1)
+### [IR AL PASO 1](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step1)
