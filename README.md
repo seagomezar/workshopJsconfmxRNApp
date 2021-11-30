@@ -1,4 +1,4 @@
-# El paso 2
+# Paso 2 - Creando pantallas con el Ignite Cli 🔥
 
 Como te diste cuenta hay muchas funcionalidades chéveres que vienen con este Boilerplate en este segundo paso te voy a enseñar a usar el generador que viene integrado junto con el Boilerplate.
 
@@ -153,7 +153,7 @@ export const ExercisesScreen: FC<StackScreenProps<NavigatorParamList, "exercises
 
 Como te darás cuenta hemos casí que duplicado algunas de las funcionalidades de nuestra WelcomeScreen y hemos utilizado el componente header para añadir el título y la posibilidad de navegar hacia atrás.
 
-## Conclusiones
+## Conclusiones 📚
 
 Deberás tener una pantalla similar a esta al finalizar este paso..
 
@@ -170,4 +170,4 @@ Espera! ¿No es así? Seguro es porque te hace falta añadir las traducciones en
 😉 Espero hayas podido detectar el error, sino es así no te preocupes
 poco a poco iremos aprendiendo, por ahora te dejo el enlace al siguiente paso:
 
-[IR AL PASO 3 -->](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step3)
+### [IR AL PASO 3](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step3)
