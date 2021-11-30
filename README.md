@@ -40,4 +40,4 @@ Deberás modificar algunos textos en algunos archivos de storybook pero nada que
 Tu aplicación debe de estar funcionando bastante bien, ya no tienes archivos innecesarios y todo parece estar optimizado para que puedas
 pasar tu aplicación a producción
 
-## [IR AL PASO 7](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step6)
+## [IR AL PASO 7](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step7)
