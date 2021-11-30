@@ -221,7 +221,7 @@ Notarás que de inmediato cargan cientos de ejercicios en nuestra exercise scree
 
 Si todo salió bien deberas poder ver la siguiente pantalla:
 
-![paso5-todos-los-ejercicios.png](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step5/paso5-todos-los-ejercicios.png "paso5-todos-los-ejercicios")
+![paso5-todos-los-ejercicios](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step5/paso5-todos-los-ejercicios.png "paso5-todos-los-ejercicios")
 
 Entender los Modelos, las APIs y como conectarlos y usarlos correctamente toma tiempo pero trae grandes beneficios de escalabilidad a largo plazo
 
