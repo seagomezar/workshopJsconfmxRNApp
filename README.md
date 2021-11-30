@@ -1,10 +1,10 @@
-## El paso 1
+## Paso 1 - Creando tu App multilenguaje 🇲🇽
 
 Si todo andó bien, estarás ansioso por empezar, lo primero de lo primero que te quiero enseñar es a hacer tu app multilenguaje, Si! Leíste bien, **multilenguaje** esa funcionalidad tremendamente grande y difícil que alguna vez tendrás que hacer en algún proyecto, y te darás cuenta que no es sencillo.
 
 Sin embargo te cuento que con el Ignite Boilerplate (este boilerplate) esta funcionalidad ya viene resuelta y completamente lista para ser utilizada e implementada de una manera fácil.
 
-### Encuentra los archivos de traducción
+### Encuentra los archivos de traducción 🔎
 
 Normalmente estos archivos se encuentra en ./app/i18n/
 allí verás que por defecto vienen dos archivos: en.json y ja.json
@@ -183,7 +183,7 @@ i18n.translations = { en, ja, es }
 i18n.locale = Localization.locale || "en"
 ```
 
-## Conclusiones
+## Conclusiones 📚
 
 Si todo salió bien deberías estar viendo algo similar a esto:
 
