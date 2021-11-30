@@ -1,43 +1,78 @@
-# El paso 6 🧹
+# El paso 7
 
-Bien! No te has rendido hemos llegado al paso 6 para poder hacer que tu aplicación este lista es necesario que limpiemos los elementos innecesarios de nuestra aplicación.
+Estamos listos para ir a producción, simplemente debemos configurar nuestra splash screen y nuestro icono. Encontrarás los que tiene la aplicación por defecto en ./assets/images yo los he reemplazado por este par de archivos reespectivamente:
 
-Vamos a borrar las pantallas que no necesitamos, los modelos y las APIs, así también removeremos las traducciones que tampoco necesitamos y tendremos una app, y un entorno de desarrollo mucho más limpio.
+- Icono:
+![Icono](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step7/assets/images/icon.png "Icono")
 
-## Borrando las pantallas que no usamos 🧹
+- Icono:
+![splash](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step7/assets/images/splash.png "splash")
 
-- Empecemos borrando la demo screen! (No te olvides de actualizar) las rutas y screens.
 
-- Remueve el boton de continuar en el exercise screen
+Luego debes configurar expo el paquete y demás en app.json:
 
-## Borrando los modelos que no usamos 🧹
+```json script
+{
+  "expo": {
+    "name": "workshopJsconfmxRNApp",
+    "slug": "workshopJsconfmxRNApp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.jsconfmx.fitnessapp",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.jsconfmx.fitnessapp",
+      "versionCode": 1
+    },
+    "web": {
+      "favicon": "./assets/images/favicon.png"
+    }
+  }
+}
 
-- Remueve el character y el character store (No te olvides de desvincularlo desde el rootstore)
-
-## Borrando las APIs que no usamos 🧹
-
-- Borra la character API y borra los metodos de la API de usuarios de api.ts
-
-## Organizando las traducciones 🇲🇽
-
-- Setea por defecto el lenguaje a español y borra el archivo de japones
-- Asegurate que no estas omitiendo ninguna traducción
-
-## Ejecuta los testfinales y formatea todo tu codigo
-
-```bash
-yarn test
 ```
 
+Eso es todo simplemente debes ejecutar el comando:
+
 ```bash
-yarn lint
+expo build:android
 ```
 
-Deberás modificar algunos textos en algunos archivos de storybook pero nada que no entiendas en este momento.
+o para iOS
+
+```bash
+expo build:ios
+```
+
+Donde te pedirá que crees o tengas una cuenta en expo, y bingo! Estas listo para hacer deploy de tu aplicación a las tiendas.
+
+Puedes monitorear el estatus de tu APK en:
+
+![paso7-expodashboard](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step7/workshop-images/paso7-expodashboard.png "paso7-expodashboard")
 
 ## Conclusiones
 
-Tu aplicación debe de estar funcionando bastante bien, ya no tienes archivos innecesarios y todo parece estar optimizado para que puedas
-pasar tu aplicación a producción
+Hemos llegado al fin!, espero que hayas disfrutado este workshop tanto como yo! Aprendiste como desarrollar siguiendo buenas prácticas una aplicación que cumple en gran medida los parámetros de escalabilidad, mantenibilidad y con una experiencia de desarrollo exelente.
 
-[IR AL PASO 7 -->](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step6)
+Eso es todo, Mil gracias
+
+[Te dejo mi sitio web](https://sebastian-gomez.com)
+[Te dejo mi canal de YouTube](https://www.youtube.com/watch?v=wNXUk00s5F4&t=70s)
+[Te dejo mi twitter](https://twitter.com/sebasgojs)
+
+Y hasta la próxima.
