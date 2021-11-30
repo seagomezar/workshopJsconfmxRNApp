@@ -12,6 +12,16 @@
     "exerciseListItem": {
       "muscle": "Músculo: ",
       "kind": "Tipo: "
+    },
+    "exerciseDetailItem": {
+      "muscle": "Músculos: ",
+      "kind": "Tipo: ",
+      "level": "Nivel: ",
+      "force": "Fuerza: ",
+      "mechanic": "Mecánica: ",
+      "equipment": "Equipo: ",
+      "secondaryMuscles": "Músculos Secundarios: ",
+      "instructions": "Instrucciones: "
     }
   }
 }

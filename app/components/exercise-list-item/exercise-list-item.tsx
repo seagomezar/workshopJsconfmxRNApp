@@ -75,6 +75,9 @@ export const ExerciseListItem = observer(function ExerciseListItem(props: Exerci
   return (
     <TouchableOpacity
       style={styles}
+      onPress={()=>{
+        navigation.navigate("exerciseDetail", {exercise: props.exercise})
+      }}
     >
       <View style={TEXT_CONTAINER}>
         <Text style={TEXT_TITLE}>{(props.exercise.name)}</Text>

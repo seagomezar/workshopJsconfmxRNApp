@@ -46,6 +46,16 @@
     "exerciseListItem": {
       "muscle": "Muscle: ",
       "kind": "Category: "
+    },
+    "exerciseDetailItem": {
+      "muscle": "Main Muscles: ",
+      "kind": "Kind: ",
+      "level": "Level: ",
+      "force": "Force: ",
+      "mechanic": "Mechanic: ",
+      "equipment": "Equipment: ",
+      "secondaryMuscles": "Secondary Muscles: ",
+      "instructions": "Instructions: "
     }
   }
 }
