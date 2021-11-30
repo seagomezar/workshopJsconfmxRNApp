@@ -1,518 +1,228 @@
-# El paso 4
+# El paso 5
 
-Nuestros ejercicios deben tener su propia página, como te diste cuenta hay demasiada información que en el item de la lista, no hemos podido mostrar. Así que vamos a darle a nuestros ejercicios, cuando le hagan click su propio espacio.
+He creado un repositorio de github que contiene una lista enorme de ejercicios es una base de datos open source que servirá como fuente inagotable de ejercicios para darle más dinamismo a nuestra aplicación. Por otro lado nos servirá como insumo para dos elementos importantes que aún debemos explorar en el Boilerplate. Estos son los servicios y los modelos:
 
-```bash
-npx ignite-cli generate screen exercise-detail
-```
+[Este es el link al repositorio](https://github.com/seagomezar/Exercises-Compiled-Database)
 
-Esto nos generará nuestra pantalla que a su vez vamos a modificar para que nos muestre el componente exercise-detail-item:
+## ¿Qué son los modelos de MobX?
+Dentro de este Boilerplate una de las características más avanzadas que trae es el tema de los modelos los modelos son utilizados como capa intermedia entre el almacenamiento, fuente de la verdad o storage, las APIs y las screens. En la siguiente imagen lo verás mejor:
 
-```tsx script
-import React, { FC } from "react"
-import { observer } from "mobx-react-lite"
-import { TextStyle, View, ViewStyle } from "react-native"
-import { ExerciseDetailItem, GradientBackground, Header, Screen } from "../../components"
-import { Exercise } from "../../screens/exercises/exercises-screen"
-import { color, spacing, typography } from "../../theme"
-import { StackScreenProps } from "@react-navigation/stack"
-import { NavigatorParamList } from "../../navigators"
+![paso5-models](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step5/workshop-images/paso5-models.png "paso5-models")
 
-const FULL: ViewStyle = { flex: 1 }
-const CONTAINER: ViewStyle = {
-  backgroundColor: color.transparent,
-  paddingHorizontal: spacing[2],
-}
+Tu!, Como desarrollador tienes el poder para decidir que datos vale la pena guardar y que datos no vale la pena. Pero primero creemos nuestro servicio de ejercicios.
 
-const HEADER: TextStyle = {
-  paddingTop: spacing[1],
-  paddingBottom: 0,
-  paddingHorizontal: 0,
-}
+## Utilizando los servicios
+Para crear servicios no existe generadores. Esto quiere decir que es el primer archivo que debemos crear de manera manual. Es por esto que vamos a ir a la carpeta ./services/api/ y crearemos nuestro archivos, exercises-api.ts.
 
-const TEXT: TextStyle = {
-  color: color.palette.white,
-  fontFamily: typography.primary,
-}
-const BOLD: TextStyle = { fontWeight: "bold" }
-
-const TITLE: TextStyle = {
-  ...TEXT,
-  ...BOLD,
-  fontSize: 28,
-  lineHeight: 38,
-  textAlign: "center",
-}
-
-export const ExerciseDetailScreen: FC<
-  StackScreenProps<NavigatorParamList, "exerciseDetail">
-> = observer(function ExerciseDetailScreen(props) {
-  const goBack = () => props.navigation.goBack()
-
-  return (
-    <View testID="ExerciseDetailScreen" style={FULL}>
-      <GradientBackground colors={["#422443", "#281b34"]} />
-      <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
-        <Header
-          leftIcon="back"
-          onLeftPress={goBack}
-          headerText={props.route.params.exercise.name}
-          style={HEADER}
-          titleStyle={TITLE}
-        />
-        <ExerciseDetailItem exercise={props.route.params.exercise} />
-      </Screen>
-    </View>
-  )
-})
-```
-
-### Pasando propiedades en la navegación:
-En este punto seguro notaste algo raro, estamos pasando el ejercicio como parámetro en la navegación desde nuestro componente:
-
-```tsx script
-onPress={()=>{
-  navigation.navigate("exerciseDetail", {exercise: props.exercise})
-}}
-```
-
-Esto es posible ya que la navegación de React Native es super potente y nos permite similarmente a lo que se hace en React Router DOM pasar parametros entre componentes. Pero ahora bien, esto debemos enlazarlo también a nuestro navigator:
-
-```tsx script
-...
-exerciseDetail: {exercise: Exercise}
-...
-<Stack.Screen name="exerciseDetail" component={ExerciseDetailScreen} />
-
-```
-
-### Generando el componente ExerciseDetailItem
-
-No te olvides de generar el componente ExerciseDetailItem
-
-```bash script
-npx ignite-cli generate component exercise-detail-item
-```
-
-Vamos a añadir lo siguiente a nuestro componente de manera que quede bien estilizado:
-
-```tsx script
-import * as React from "react"
-import { ImageBackground, ImageStyle, StyleProp, TextStyle, View, ViewStyle } from "react-native"
-import { observer } from "mobx-react-lite"
-import { color, spacing, typography } from "../../theme"
-import { Text } from "../text/text"
-import { flatten } from "ramda"
-import { Button, Icon, DifficultyIndicator } from ".."
-import { useEffect, useState } from "react"
-import { capitalizeFirstLetter } from "../../utils/strings"
-import { Exercise } from "../../screens"
-
-const CONTAINER: ViewStyle = {
-  justifyContent: "center",
-}
-
-const TEXT: TextStyle = {
-  fontFamily: typography.primary,
-  fontSize: 16,
-  color: color.primary,
-}
-
-const IMAGE: ImageStyle = {
-  alignSelf: "center",
-  maxWidth: "100%",
-  width: "100%",
-  height: 300,
-  borderRadius: 10,
-  resizeMode: "contain",
-  marginVertical: spacing[2],
-}
-
-const MAIN_ITEM: ViewStyle = {
-  flexDirection: "row",
-  borderWidth: 1,
-  borderColor: color.dim,
-  marginVertical: spacing[1],
-  paddingVertical: spacing[4],
-  paddingHorizontal: spacing[4],
-}
-
-const DETAILS_CONTAINER: ViewStyle = {
-  flexDirection: "row",
-  flexWrap: "wrap",
-  width: "100%",
-  marginTop: spacing[1],
-}
-
-const DETAILS_ITEM: ViewStyle = {
-  flexDirection: "row",
-  flexBasis: "50%",
-  borderWidth: 1,
-  borderColor: color.dim,
-  marginVertical: spacing[1],
-  paddingVertical: spacing[4],
-  paddingHorizontal: spacing[4],
-}
-
-const INSTRUCTIONS_CONTAINER: ViewStyle = {
-  borderColor: color.primary,
-  borderWidth: 2,
-  marginVertical: spacing[4],
-  paddingHorizontal: spacing[4],
-  paddingVertical: spacing[4],
-}
-
-const BUTTONS_CONTAINER: ViewStyle = {
-  flexDirection: "row",
-  marginBottom: spacing[1],
-  justifyContent: "space-between",
-  width: "40%",
-}
-
-const BUTTON: ViewStyle = {
-  backgroundColor: color.text,
-  padding: 0,
-  margin: 0,
-  width: 32,
-  height: 32,
-}
-
-const ICON: ImageStyle = {
-  width: 32,
-  height: 32,
-}
-
-const TEXT_DIM: TextStyle = {
-  ...TEXT,
-  marginBottom: 5,
-  color: color.dim,
-}
-
-const INSTRUCTION_BODY: TextStyle = {
-  textAlign: "justify",
-}
-
-const LEVEL_CONTAINER: ViewStyle = {
-  ...MAIN_ITEM,
-  flexDirection: "column",
-}
-
-const LEVEL_TEXT_CONTAINER: ViewStyle = { flexDirection: "row" }
-
-const DIFFICULTY_INDICATOR: ViewStyle = {
-  width: "100%",
-}
-
-export interface ExerciseDetailItemProps {
-  /**
-   * An optional style override useful for padding & margin.
-   */
-  style?: StyleProp<ViewStyle>
-  exercise: Exercise
-}
-
-/**
- * Describe your component here
- */
-export const ExerciseDetailItem = observer(function ExerciseDetailItem(
-  props: ExerciseDetailItemProps,
-) {
-  const { style } = props
-  const styles = flatten([CONTAINER, style])
-  const [currentImage, setCurrentImage] = useState(props.exercise.images[0])
-  const [animationPlayed, setAnimationPlayed] = useState(false)
-  const [isFavorite, setIsFavorite] = useState(false)
-  const [favorites, setFavorites] = useState<Exercise[]>([])
-  const [addToWorkout, setAddToWorkout] = useState(false)
-
-  useEffect(() => {
-    let interval
-    if (animationPlayed) {
-      interval = setInterval(() => {
-        if (currentImage === props.exercise.images[0]) {
-          setCurrentImage(props.exercise.images[1])
-        } else if (currentImage === props.exercise.images[1]) {
-          setCurrentImage(props.exercise.images[0])
-        }
-      }, 1000)
-      return () => {
-        clearInterval(interval)
-      }
-    } else {
-      if (interval) {
-        clearInterval(interval)
-      }
-    }
-  }, [currentImage, animationPlayed])
-
-  return (
-    <View style={styles}>
-      <ImageBackground
-        style={IMAGE}
-        source={{
-          uri: `https://raw.githubusercontent.com/seagomezar/Exercises-Compiled-Database/main/images/${currentImage}`,
-        }}
-      />
-      <View style={BUTTONS_CONTAINER}>
-        {!animationPlayed ? (
-          <Button style={BUTTON} onPress={() => setAnimationPlayed(true)}>
-            <Icon icon="play" style={ICON} />
-          </Button>
-        ) : (
-          <Button style={BUTTON} onPress={() => setAnimationPlayed(false)}>
-            <Icon icon="pause" style={ICON} />
-          </Button>
-        )}
-        <Button
-          style={BUTTON}
-          onPress={() => {
-            console.log("TBD")
-          }}
-        >
-          <Icon icon="add" style={ICON} />
-        </Button>
-        <Button
-          style={BUTTON}
-          onPress={() => {
-            console.log("TBD")
-          }}
-        >
-          <Icon icon={"star"} style={ICON} />
-        </Button>
-      </View>
-      <View style={MAIN_ITEM}>
-        <Text style={TEXT_DIM} tx="components.exerciseDetailItem.muscle" />
-        <Text text={capitalizeFirstLetter(props.exercise.primaryMuscles.join(", "))} />
-      </View>
-
-      {props.exercise.secondaryMuscles.length ? (
-        <View style={MAIN_ITEM}>
-          <Text style={TEXT_DIM} tx="components.exerciseDetailItem.secondaryMuscles" />
-          <Text text={capitalizeFirstLetter(props.exercise.secondaryMuscles.join(", "))} />
-        </View>
-      ) : (
-        <></>
-      )}
-
-      <View style={LEVEL_CONTAINER}>
-        <View style={LEVEL_TEXT_CONTAINER}>
-          <Text style={TEXT_DIM} tx="components.exerciseDetailItem.level" />
-          <Text text={capitalizeFirstLetter(props.exercise.level)} />
-        </View>
-        <DifficultyIndicator style={DIFFICULTY_INDICATOR} level={props.exercise.level} />
-      </View>
-
-      <View style={DETAILS_CONTAINER}>
-        <View style={DETAILS_ITEM}>
-          <Text style={TEXT_DIM} tx="components.exerciseDetailItem.kind" />
-          <Text text={capitalizeFirstLetter(props.exercise.category)} />
-        </View>
-
-        <View style={DETAILS_ITEM}>
-          <Text style={TEXT_DIM} tx="components.exerciseDetailItem.force" />
-          <Text text={capitalizeFirstLetter(props.exercise.force)} />
-        </View>
-
-        <View style={DETAILS_ITEM}>
-          <Text style={TEXT_DIM} tx="components.exerciseDetailItem.mechanic" />
-          <Text text={capitalizeFirstLetter(props.exercise.mechanic)} />
-        </View>
-
-        <View style={DETAILS_ITEM}>
-          <Text style={TEXT_DIM} tx="components.exerciseDetailItem.equipment" />
-          <Text text={capitalizeFirstLetter(props.exercise.equipment)} />
-        </View>
-      </View>
-      <View style={INSTRUCTIONS_CONTAINER}>
-        <Text style={TEXT_DIM} tx="components.exerciseDetailItem.instructions" />
-        <Text style={INSTRUCTION_BODY}>
-          {capitalizeFirstLetter(props.exercise.instructions.join(" "))}
-        </Text>
-      </View>
-    </View>
-  )
-})
-```
-
-Prestale mucha atención al useEffect ya que verás que al hacer click en play una animación con el ejercicio se ejecutará.
-
-Whoot! ¿Eso fue mucho verdad? Y lo peor de todo es que probablemente
-no esté funcionando ya que primero vamos a crear un componente más llamado difficulty-indicator para que nos muestre una barra con el nivel de dificultad:
-
-### Creando el componente de indicador de difficultad
-
-```bash
-npx ignite-cli generate component difficulty-indicator
-```
-
-Y luego vamos a valernos de nuestra creatividad para que refleje
-los niveles de difficultad de nuestros ejercicios:
-
-```tsx script
-import * as React from "react"
-import { StyleProp, TextStyle, View, ViewStyle } from "react-native"
-import { observer } from "mobx-react-lite"
-import { color, typography } from "../../theme"
-import { flatten } from "ramda"
-import { useEffect, useState } from "react"
-
-const CONTAINER = {
-  marginTop: 10,
-}
-
-const BAR = {
-  height: 10,
-  width: "80%",
-  backgroundColor: color.dim,
-  borderRadius: 40,
-}
-
-const BAR_CONTAINER = {
-  height: "100%",
-  width: "0%",
-  backgroundColor: color.transparent,
-  borderRadius: 40,
-  textAlign: "right",
-}
-const BAR_CONTAINER_BEGINNER = {
-  ...BAR_CONTAINER,
-  width: "33%",
-  backgroundColor: color.palette.green,
-}
-const BAR_CONTAINER_INTERMEDIATE = {
-  ...BAR_CONTAINER,
-  width: "66%",
-  backgroundColor: color.palette.orange,
-}
-const BAR_CONTAINER_EXPERT = {
-  ...BAR_CONTAINER,
-  width: "99%",
-  backgroundColor: color.palette.angry,
-}
-
-const TEXT: TextStyle = {
-  padding: 10,
-  color: color.dim,
-}
-
-enum DifficultyLevel {
-  Begginner = "beginner",
-  Intermediate = "intermediate",
-  expert = "expert",
-}
-
-export interface DifficultyIndicatorProps {
-  /**
-   * An optional style override useful for padding & margin.
-   */
-  style?: StyleProp<ViewStyle>
-  level: string
-}
-
-/**
- * Describe your component here
- */
-export const DifficultyIndicator = observer(function DifficultyIndicator(
-  props: DifficultyIndicatorProps,
-) {
-  const { style } = props
-  const styles = flatten([CONTAINER, style])
-
-  const [barStyle, setBarStyle] = useState(BAR_CONTAINER)
-
-  useEffect(() => {
-    if (props.level === DifficultyLevel.Begginner) {
-      setBarStyle(BAR_CONTAINER_BEGINNER)
-    } else if (props.level === DifficultyLevel.Intermediate) {
-      setBarStyle(BAR_CONTAINER_INTERMEDIATE)
-    } else if (props.level === DifficultyLevel.expert) {
-      setBarStyle(BAR_CONTAINER_EXPERT)
-    }
-  }, [])
-
-  return (
-    <View style={styles}>
-      {/* <Text>{capitalizeFirstLetter(props.level)}</Text> */}
-      <View style={BAR}>
-        <View style={barStyle}></View>
-      </View>
-    </View>
-  )
-})
-```
-
-### Creando una función utilitaria
-
-Luego ya que tenemos nuestro componente de indicador de dificultad
-debemos crear una función utilitaria que se compartirá a lo largo de toda la aplicación para poner la primera letra de textos en mayúscula, para ello crea el archivo ./utils/string.ts y coloca la función allí:
+Este pasó será simple ya que por defecto el Boilerplate viene un archivo llamado character-api.ts, podemos basar nuestro desarrollo en este archivo. Así que dentro de exercises-api.ts invoquemos nuestro endpoint de ejercicios:
 
 ```ts script
-export function capitalizeFirstLetter(str: string): string {
-  if (!str) return ""
-  if (str && !str.length) return ""
+import { ApiResponse } from "apisauce"
+import { Api } from "./api"
+import { GetExercisesResult } from "./api.types"
+import { getGeneralApiProblem } from "./api-problem"
 
-  return str.charAt(0).toUpperCase() + str.slice(1)
+const API_PAGE_SIZE = 50
+
+export class ExercisesApi {
+  private api: Api
+
+  constructor(api: Api) {
+    this.api = api
+  }
+
+  async getExercises(): Promise<GetExercisesResult> {
+    try {
+      // make the api call
+      const response: ApiResponse<any> = await this.api.apisauce.get(
+        "https://raw.githubusercontent.com/seagomezar/Exercises-Compiled-Database/main/sample.json",
+        { amount: API_PAGE_SIZE },
+      )
+
+      // the typical ways to die when calling an api
+      if (!response.ok) {
+        const problem = getGeneralApiProblem(response)
+        if (problem) return problem
+      }
+
+      const exercises = response.data.exercises
+
+      return { kind: "ok", exercises }
+    } catch (e) {
+      __DEV__ && console.tron.log(e.message)
+      return { kind: "bad-data" }
+    }
+  }
 }
 ```
 
+Nota que no hemos usado ni fetch, ni axios. Este Boilerplate viene con una utilidad creada por el equipo mismo de ignite llamado sausage api, que se para sobre axios para ofrecer un par extra de funcionalidades.
 
-### El componente de iconos ⚠️
+### Creando el tipo de la respuesta
 
-Una última cosa hemos añadido y creado varios iconos como el de la estrella para favoritos, el de play o el de agregar! Te invito a que vayas y modifiques este componente añadiendo varios iconos que pueden ser de utilidad ./components/icon/icons/index.ts:
+Ahora si notaste estamos importando un tipo <GetExercisesResult> que no existe y que debemos de crear dentro de api.types.ts así que vamos a crearlo.
+
+Añadamos una linea al final con nuestro tipo genérico:
+
+```ts
+export type GetExercisesResult = { kind: "ok"; exercises: [] } | GeneralApiProblem
+```
+
+Vamos a usar el tipo Exercise que creamos en nuestra screen.
+Para ellos Mobx Ofrece una funcionalidad que permite convertir Modelos de MobX en Interfaces de Typescript.
+
+Es tiempo de crear nuestro modelo
+
+## Creando el modelo ejercicio y ejercicio store
+
+Vamos a usar el ignite-cli para crear nuestro modelo. Vamos a tener dos modelos. El primero representará el ejercicio en su versión pura:
+
+```bash
+npx ignite-cli generate model exercise
+```
+
+Y lo vamos a llenar basandonos en la interface de typescript que habiamos creado en nuestra screen:
+
+```ts script
+import { Instance, SnapshotOut, types } from "mobx-state-tree"
+
+/**
+ * Model description here for TypeScript hints.
+ */
+export const ExerciseModel = types
+  .model("Exercise")
+  .props({
+    name: types.optional(types.string,""),
+    force: types.optional(types.maybeNull(types.string), ""),
+    level: types.optional(types.maybeNull(types.string), ""),
+    mechanic: types.optional(types.maybeNull(types.string), ""),
+    equipment: types.optional(types.maybeNull(types.string), ""),
+    primaryMuscles: types.optional(types.array(types.string), []),
+    secondaryMuscles: types.optional(types.array(types.string), []),
+    instructions: types.optional(types.array(types.string), []),
+    category: types.optional(types.maybeNull(types.string), ""),
+    images: types.optional(types.array(types.string), []),
+    id: types.string
+  })
+
+type ExerciseType = Instance<typeof ExerciseModel>
+export interface Exercise extends ExerciseType {}
+type ExerciseSnapshotType = SnapshotOut<typeof ExerciseModel>
+export interface ExerciseSnapshot extends ExerciseSnapshotType {}
+export const createExerciseDefaultModel = () => types.optional(ExerciseModel, {})
+```
+
+Luego vamos a generar el exercises-store que será el modelo encargado de llamar a la API de ejercicios y porque no guardarlos, si es el caso en nuestro manejador de estados si queremos manejar algún sistema de cache. Por ahora esto es lo que debería contener tu exercise-store:
+
+```ts script
+import { Instance, SnapshotOut, types } from "mobx-state-tree"
+import { withEnvironment } from "../extensions/with-environment"
+import { ExerciseModel, ExerciseSnapshot } from "../exercise/exercise"
+import { ExercisesApi } from "../../services/api/exercises-api"
+
+export const ExerciseStoreModel = types
+  .model("ExerciseStore")
+  .props({
+    exercises: types.optional(types.array(ExerciseModel), []),
+  })
+  .extend(withEnvironment)
+  .actions((self) => ({
+    saveExercises: (exerciseSnapshots: ExerciseSnapshot[]) => {
+      self.exercises.replace(exerciseSnapshots)
+    },
+  }))
+  .actions((self) => ({
+    getExercises: async () => {
+      const exerciseApi = new ExercisesApi(self.environment.api)
+      const result = await exerciseApi.getExercises()
+
+      if (result.kind === "ok") {
+        // Thing very well why you want to store something
+        // self.saveExercises(result.exercises)
+        // instead of simply returning
+        return result.exercises
+      } else {
+        __DEV__ && console.tron.log(result.kind)
+      }
+    },
+  }))
+
+type ExerciseStoreType = Instance<typeof ExerciseStoreModel>
+export interface ExerciseStore extends ExerciseStoreType { }
+type ExerciseStoreSnapshotType = SnapshotOut<typeof ExerciseStoreModel>
+export interface ExerciseStoreSnapshot extends ExerciseStoreSnapshotType { }
+export const createExerciseStoreDefaultModel = () => types.optional(ExerciseStoreModel, {})
+```
+
+El siguiente paso es colocar la nueva store disponible para toda la aplicación. Esto se hace en root-store.ts:
+
+```ts script
+import { Instance, SnapshotOut, types } from "mobx-state-tree"
+import { ExerciseStoreModel } from "../exercise-store/exercise-store"
+import { CharacterStoreModel } from "../character-store/character-store"
+
+/**
+ * A RootStore model.
+ */
+// prettier-ignore
+export const RootStoreModel = types.model("RootStore").props({
+  characterStore: types.optional(CharacterStoreModel, {} as any),
+  exerciseStore: types.optional(ExerciseStoreModel, {} as any)
+})
+
+/**
+ * The RootStore instance.
+ */
+export interface RootStore extends Instance<typeof RootStoreModel> {}
+
+/**
+ * The data of a RootStore.
+ */
+export interface RootStoreSnapshot extends SnapshotOut<typeof RootStoreModel> {}
+
+```
+
+Y finalmente vamos decirle a nuestra exercises screen que por favor a través del modelo vaya y llame la API y nos retorne los resultados:
 
 ```tsx script
-export const icons = {
-  back: require("./arrow-left.png"),
-  bullet: require("./bullet.png"),
-  bug: require("./ladybug.png"),
-  add: require("./add.png"),
-  addWhite: require("./add-white.png"),
-  play: require("./play.png"),
-  pause: require("./pause.png"),
-  star: require("./star.png"),
-  starFilled: require("./star-filled.png"),
-  home: require("./home.png"),
-  muscle: require("./muscle.png"),
-  close: require("./close.png"),
-  trash: require("./trash.png"),
-  down: require("./down.png"),
-  up: require("./up.png"),
-  pageDown: require("./page-down.png"),
-  pageUp: require("./page-up.png"),
-  pdf: require("./pdf.png"),
-  filter: require("./filter.png"),
-  filterClear: require("./clear-filter.png"),
-}
+...
+const nextScreen = () => navigation.navigate("demo")
+const { exerciseStore } = useStores()
 
-export type IconTypes = keyof typeof icons
+// Opcion 1
+const [exercises, setExercises] = useState([])
 
+// Opcion 2
+// const { exercises } = exerciseStore
+
+useEffect(() => {
+  async function fetchData() {
+    // Opcion 1
+    const result = await exerciseStore.getExercises()
+    setExercises(result)
+    // Opcion 2
+    // await exerciseStore.getExercises()
+  }
+  fetchData()
+}, [])
+
+return ...
 ```
 
-[Aquí](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step4/app/components/icon/icons) encontrarás las imágenes solos debes descargarlas y colocarlas en la carpeta: ./components/icon/icons/index.ts
+recuerda por ultimo actualizar el tipo de dato de la respuesta en el api.types.ts:
 
-### Añadiendo las traducciones 🇺🇲🇽
-
-Casí estamos listos como siempre mantener un aplicación multilenguaje cuesta un poco más. Pero no te rindas! Solo es añadir algunas traducciones para nuestros componentes:
-
-```json script
-"exerciseDetailItem": {
-  "muscle": "Músculos: ",
-  "kind": "Tipo: ",
-  "level": "Nivel: ",
-  "force": "Fuerza: ",
-  "mechanic": "Mecánica: ",
-  "equipment": "Equipo: ",
-  "secondaryMuscles": "Músculos Secundarios: ",
-  "instructions": "Instrucciones: "
-}
+```ts script
+export type GetExercisesResult = { kind: "ok"; exercises: Exercise[] } | GeneralApiProblem
 ```
+
+Notarás que de inmediato cargan cientos de ejercicios en nuestra exercise screen. Estamos trayendo muchos ejercicio y podemos casi que automáticamente ver el detalle de cada ejercicio.
 
 ## Conclusiones
 
 Si todo salió bien deberas poder ver la siguiente pantalla:
 
-![paso4-exercise-detail](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step4/workshop-images/paso4-exercise-detail.png "paso4-exercise-detail")
+![paso5-todos-los-ejercicios.png](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step5/paso5-todos-los-ejercicios.png "paso5-todos-los-ejercicios")
 
-Tomate tu tiempo. Este paso es largo hemos hecho muchas cosas, creamos varios componentes, una pantalla y la conectamos al flujo de navegación, intenta hacerlo por ti mismo. Sino simplemente pasate a esta rama de git e intentalo!
+Entender los Modelos, las APIs y como conectarlos y usarlos correctamente toma tiempo pero trae grandes beneficios de escalabilidad a largo plazo
 
-[IR AL PASO 5 -->](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step5)
+[IR AL PASO 6 -->](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step6)

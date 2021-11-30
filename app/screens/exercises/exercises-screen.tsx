@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, useEffect, useState } from "react"
 import { View, ViewStyle, TextStyle, SafeAreaView } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { observer } from "mobx-react-lite"
@@ -11,6 +11,7 @@ import {
 } from "../../components"
 import { color, spacing, typography } from "../../theme"
 import { NavigatorParamList } from "../../navigators"
+import { useStores } from "../../models"
 
 const FULL: ViewStyle = { flex: 1 }
 const CONTAINER: ViewStyle = {
@@ -67,61 +68,27 @@ export interface Exercise {
   id: string
 }
 
-const exercises: Exercise[] = [
-  {
-    "name": "3/4 Sit-Up",
-    "force": "pull",
-    "level": "beginner",
-    "mechanic": "compound",
-    "equipment": "body only",
-    "primaryMuscles": [
-      "abdominals"
-    ],
-    "secondaryMuscles": [],
-    "instructions": [
-      "Lie down on the floor and secure your feet. Your legs should be bent at the knees.",
-      "Place your hands behind or to the side of your head. You will begin with your back on the ground. This will be your starting position.",
-      "Flex your hips and spine to raise your torso toward your knees.",
-      "At the top of the contraction your torso should be perpendicular to the ground. Reverse the motion, going only Â¾ of the way down.",
-      "Repeat for the recommended amount of repetitions."
-    ],
-    "category": "strength",
-    "images": [
-      "3_4_Sit-Up_1.jpg",
-      "3_4_Sit-Up_2.jpg"
-    ],
-    "id": "3_4_Sit-Up"
-  },
-  {
-    "name": "90/90 Hamstring",
-    "force": "push",
-    "level": "beginner",
-    "mechanic": null,
-    "equipment": "body only",
-    "primaryMuscles": [
-      "hamstrings"
-    ],
-    "secondaryMuscles": [
-      "calves"
-    ],
-    "instructions": [
-      "Lie on your back, with one leg extended straight out.",
-      "With the other leg, bend the hip and knee to 90 degrees. You may brace your leg with your hands if necessary. This will be your starting position.",
-      "Extend your leg straight into the air, pausing briefly at the top. Return the leg to the starting position.",
-      "Repeat for 10-20 repetitions, and then switch to the other leg."
-    ],
-    "category": "stretching",
-    "images": [
-      "90_90_Hamstring_1.jpg",
-      "90_90_Hamstring_2.jpg"
-    ],
-    "id": "90_90_Hamstring"
-  }
-]
-
 export const ExercisesScreen: FC<StackScreenProps<NavigatorParamList, "exercises">> = observer(
   ({ navigation }) => {
     const nextScreen = () => navigation.navigate("demo")
+    const { exerciseStore } = useStores()
+
+    // Opcion 1
+    const [exercises, setExercises] = useState([])
+
+    // Opcion 2
+    // const { exercises } = exerciseStore
+
+    useEffect(() => {
+      async function fetchData() {
+        // Opcion 1
+        const result = await exerciseStore.getExercises()
+        setExercises(result)
+        // Opcion 2
+        // await exerciseStore.getExercises()
+      }
+      fetchData()
+    }, [])
 
     return (
       <View testID="ExercisesScreen" style={FULL}>
