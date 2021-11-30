@@ -1,4 +1,4 @@
-# El paso 5
+# Paso 5 - Entendiendo los modelos y las API 🏎
 
 He creado un repositorio de github que contiene una lista enorme de ejercicios es una base de datos open source que servirá como fuente inagotable de ejercicios para darle más dinamismo a nuestra aplicación. Por otro lado nos servirá como insumo para dos elementos importantes que aún debemos explorar en el Boilerplate. Estos son los servicios y los modelos:
 
@@ -217,7 +217,7 @@ export type GetExercisesResult = { kind: "ok"; exercises: Exercise[] } | General
 
 Notarás que de inmediato cargan cientos de ejercicios en nuestra exercise screen. Estamos trayendo muchos ejercicio y podemos casi que automáticamente ver el detalle de cada ejercicio.
 
-## Conclusiones
+## Conclusiones 📚
 
 Si todo salió bien deberas poder ver la siguiente pantalla:
 
@@ -225,4 +225,4 @@ Si todo salió bien deberas poder ver la siguiente pantalla:
 
 Entender los Modelos, las APIs y como conectarlos y usarlos correctamente toma tiempo pero trae grandes beneficios de escalabilidad a largo plazo
 
-[IR AL PASO 6 -->](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step6)
+## [IR AL PASO 6](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step6)
