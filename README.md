@@ -1,4 +1,4 @@
-# El paso 4
+# Paso 4 - Profundizando en la navegación 🚢
 
 Nuestros ejercicios deben tener su propia página, como te diste cuenta hay demasiada información que en el item de la lista, no hemos podido mostrar. Así que vamos a darle a nuestros ejercicios, cuando le hagan click su propio espacio.
 
@@ -507,7 +507,7 @@ Casí estamos listos como siempre mantener un aplicación multilenguaje cuesta u
 }
 ```
 
-## Conclusiones
+## Conclusiones 📚
 
 Si todo salió bien deberas poder ver la siguiente pantalla:
 
@@ -515,4 +515,4 @@ Si todo salió bien deberas poder ver la siguiente pantalla:
 
 Tomate tu tiempo. Este paso es largo hemos hecho muchas cosas, creamos varios componentes, una pantalla y la conectamos al flujo de navegación, intenta hacerlo por ti mismo. Sino simplemente pasate a esta rama de git e intentalo!
 
-[IR AL PASO 5 -->](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step5)
+## [IR AL PASO 5](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step5)
