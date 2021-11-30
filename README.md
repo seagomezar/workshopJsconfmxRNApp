@@ -1,4 +1,4 @@
-# El paso 7
+# Paso 7 - Comunicandonos con Expo y Haciendo el Deploy 🚀
 
 Estamos listos para ir a producción, simplemente debemos configurar nuestra splash screen y nuestro icono. Encontrarás los que tiene la aplicación por defecto en ./assets/images yo los he reemplazado por este par de archivos reespectivamente:
 
@@ -65,9 +65,13 @@ Puedes monitorear el estatus de tu APK en:
 
 ![paso7-expodashboard](https://raw.githubusercontent.com/seagomezar/workshopJsconfmxRNApp/step7/workshop-images/paso7-expodashboard.png "paso7-expodashboard")
 
-## Conclusiones
+## Conclusiones 📚
 
 Hemos llegado al fin!, espero que hayas disfrutado este workshop tanto como yo! Aprendiste como desarrollar siguiendo buenas prácticas una aplicación que cumple en gran medida los parámetros de escalabilidad, mantenibilidad y con una experiencia de desarrollo exelente.
+
+🤓 Es momento de que pongas a prueba tus conocimientos. He creado este examen para que comprobemos juntos que tanto aprendiste. No tengas miedo:
+
+- 🧪 [Link al examen](https://docs.google.com/forms/d/e/1FAIpQLSfuadaaeFJpTP3ITt-ADBXdxINRDyzRKIquidgH7mzOJFSubw/viewform?usp=sf_link)
 
 Eso es todo, Mil gracias
 
