@@ -1,4 +1,4 @@
-# El paso 3
+# Paso 3 - Usando el Ignite-cli para generar Componentes 🔥
 
 ## Usando el Ignite Cli Generator
 Igualmente que como hicimos en el paso anterior vamos a generar nuestro primer componente, ya te imaginarás que el boilerplate te ayuda no solo a generar screens sino también componentes! Y como te dije el objetivo de la pagina de ejercicios o "exercises screen" se encargará de mostrar una lista de ejercicios para que el usuario pueda libremente buscar, ver y reproducir ejercicios para si entrenamiento en el Gimnasio. 🏋🏻‍♀️ 💪.
@@ -278,8 +278,8 @@ Es tu momento ve y juega un poco más con el componente, quisieras añadirle alg
 ¿Como lo hárias? Deja volar tu imaginación!
 
 
-## Conclusiones
+## Conclusiones 📚
 
 😉 Ha sido divertido! Por ahora te dejo el enlace al siguiente paso:
 
-[IR AL PASO 4 -->](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step4)
+### [IR AL PASO 4](https://github.com/seagomezar/workshopJsconfmxRNApp/tree/step4)
