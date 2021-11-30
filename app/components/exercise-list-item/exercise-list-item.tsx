@@ -75,19 +75,19 @@ export const ExerciseListItem = observer(function ExerciseListItem(props: Exerci
   return (
     <TouchableOpacity
       style={styles}
-      onPress={()=>{
-        navigation.navigate("exerciseDetail", {exercise: props.exercise})
+      onPress={() => {
+        navigation.navigate("exerciseDetail", { exercise: props.exercise })
       }}
     >
       <View style={TEXT_CONTAINER}>
-        <Text style={TEXT_TITLE}>{(props.exercise.name)}</Text>
+        <Text style={TEXT_TITLE}>{props.exercise.name}</Text>
         <Text style={TEXT_DIM}>
           <Text tx="components.exerciseListItem.muscle" />
-          {(props.exercise.primaryMuscles.join(""))}
+          {props.exercise.primaryMuscles.join("")}
         </Text>
         <Text style={TEXT_DIM}>
           <Text tx="components.exerciseListItem.kind" />
-          {(props.exercise.category)}
+          {props.exercise.category}
         </Text>
       </View>
       <View style={IMAGE_CONTAINER}>

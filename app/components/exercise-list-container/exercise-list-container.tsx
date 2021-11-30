@@ -14,7 +14,9 @@ export interface ExerciseListContainerProps {
   exercises: Exercise[]
 }
 
-export const ExerciseListContainer = observer(function ExerciseListContainer(props: ExerciseListContainerProps) {
+export const ExerciseListContainer = observer(function ExerciseListContainer(
+  props: ExerciseListContainerProps,
+) {
   const { style } = props
   const styles = flatten([CONTAINER, style])
 
@@ -22,8 +24,8 @@ export const ExerciseListContainer = observer(function ExerciseListContainer(pro
     <View style={styles}>
       <FlatList
         data={props.exercises}
-        keyExtractor={(item)=>item.id}
-        renderItem={({item})=><ExerciseListItem exercise={item}/>}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <ExerciseListItem exercise={item} />}
       />
     </View>
   )

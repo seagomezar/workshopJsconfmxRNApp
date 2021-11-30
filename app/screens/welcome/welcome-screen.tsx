@@ -91,25 +91,29 @@ export const WelcomeScreen: FC<StackScreenProps<NavigatorParamList, "welcome">> 
     return (
       <View testID="WelcomeScreen" style={FULL}>
         <GradientBackground colors={["#422443", "#281b34"]} />
-        {(!reload) ? <>
-          <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
-            <Header headerTx="welcomeScreen.poweredBy" style={HEADER} titleStyle={HEADER_TITLE} />
-            <Text style={TITLE} preset="header" tx="welcomeScreen.readyForLaunch" />
-            <Image source={jsconfLogo} style={JSCONFLOGO} />
-            <Button tx="welcomeScreen.lang" onPress={changeLanguage} />
-          </Screen>
-          <SafeAreaView style={FOOTER}>
-            <View style={FOOTER_CONTENT}>
-              <Button
-                testID="next-screen-button"
-                style={CONTINUE}
-                textStyle={CONTINUE_TEXT}
-                tx="welcomeScreen.continue"
-                onPress={nextScreen}
-              />
-            </View>
-          </SafeAreaView>
-        </> : <></>}
+        {!reload ? (
+          <>
+            <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
+              <Header headerTx="welcomeScreen.poweredBy" style={HEADER} titleStyle={HEADER_TITLE} />
+              <Text style={TITLE} preset="header" tx="welcomeScreen.readyForLaunch" />
+              <Image source={jsconfLogo} style={JSCONFLOGO} />
+              <Button tx="welcomeScreen.lang" onPress={changeLanguage} />
+            </Screen>
+            <SafeAreaView style={FOOTER}>
+              <View style={FOOTER_CONTENT}>
+                <Button
+                  testID="next-screen-button"
+                  style={CONTINUE}
+                  textStyle={CONTINUE_TEXT}
+                  tx="welcomeScreen.continue"
+                  onPress={nextScreen}
+                />
+              </View>
+            </SafeAreaView>
+          </>
+        ) : (
+          <></>
+        )}
       </View>
     )
   },

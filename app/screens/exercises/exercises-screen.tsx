@@ -1,14 +1,8 @@
 import React, { FC, useEffect, useState } from "react"
-import { View, ViewStyle, TextStyle, SafeAreaView } from "react-native"
+import { View, ViewStyle, TextStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { observer } from "mobx-react-lite"
-import {
-  Button,
-  Header,
-  Screen,
-  GradientBackground,
-  ExerciseListContainer,
-} from "../../components"
+import { Header, Screen, GradientBackground, ExerciseListContainer } from "../../components"
 import { color, spacing, typography } from "../../theme"
 import { NavigatorParamList } from "../../navigators"
 import { useStores } from "../../models"
@@ -37,23 +31,6 @@ const HEADER_TITLE: TextStyle = {
   letterSpacing: 1.5,
 }
 
-const CONTINUE: ViewStyle = {
-  paddingVertical: spacing[4],
-  paddingHorizontal: spacing[4],
-  backgroundColor: color.palette.deepPurple,
-}
-const CONTINUE_TEXT: TextStyle = {
-  ...TEXT,
-  ...BOLD,
-  fontSize: 13,
-  letterSpacing: 2,
-}
-const FOOTER: ViewStyle = { backgroundColor: "#20162D" }
-const FOOTER_CONTENT: ViewStyle = {
-  paddingVertical: spacing[4],
-  paddingHorizontal: spacing[4],
-}
-
 export interface Exercise {
   name: string
   force: string
@@ -70,7 +47,6 @@ export interface Exercise {
 
 export const ExercisesScreen: FC<StackScreenProps<NavigatorParamList, "exercises">> = observer(
   ({ navigation }) => {
-    const nextScreen = () => navigation.navigate("demo")
     const { exerciseStore } = useStores()
 
     // Opcion 1
@@ -93,29 +69,18 @@ export const ExercisesScreen: FC<StackScreenProps<NavigatorParamList, "exercises
     return (
       <View testID="ExercisesScreen" style={FULL}>
         <GradientBackground colors={["#422443", "#281b34"]} />
-          <Screen style={CONTAINER} preset="fixed" backgroundColor={color.transparent}>
-            <Header
-              headerTx="exercisesScreen.title"
-              style={HEADER}
-              leftIcon="back"
-              onLeftPress={()=>{
-                navigation.goBack()
-              }}
-              titleStyle={HEADER_TITLE}
-            />
-            <ExerciseListContainer exercises={exercises} />
-          </Screen>
-          <SafeAreaView style={FOOTER}>
-            <View style={FOOTER_CONTENT}>
-              <Button
-                testID="next-screen-button"
-                style={CONTINUE}
-                textStyle={CONTINUE_TEXT}
-                tx="welcomeScreen.continue"
-                onPress={nextScreen}
-              />
-            </View>
-          </SafeAreaView>
+        <Screen style={CONTAINER} preset="fixed" backgroundColor={color.transparent}>
+          <Header
+            headerTx="exercisesScreen.title"
+            style={HEADER}
+            leftIcon="back"
+            onLeftPress={() => {
+              navigation.goBack()
+            }}
+            titleStyle={HEADER_TITLE}
+          />
+          <ExerciseListContainer exercises={exercises} />
+        </Screen>
       </View>
     )
   },

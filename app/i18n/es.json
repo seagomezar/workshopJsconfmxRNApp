@@ -1,4 +1,12 @@
 {
+  "common": {
+    "ok": "OK!",
+    "cancel": "Cancel",
+    "back": "Back"
+  },
+  "errors": {
+    "invalidEmail": "Invalid email address."
+  },
   "welcomeScreen": {
     "poweredBy": "Patrocinado por la JSCONFMX",
     "readyForLaunch": "Estamos listos para desplegar",
@@ -7,6 +15,16 @@
   },
   "exercisesScreen": {
     "title": "Ejercicios"
+  },
+  "errorScreen": {
+    "title": "Oops Algo salió mal!",
+    "friendlySubtitle": "Esta es la pantalla que los usuarios verán en producción cuando se produzca un error. Querrá personalizar este mensaje (ubicado en `app / i18n / en.json`) y probablemente también el diseño (` app / screen / error`). Si desea eliminar esto por completo, marque `app / app.tsx` para el componente <ErrorBoundary>.",
+    "traceTitle": "Error desde %{name} stack",
+    "reset": "RESETEAR APP"
+  },
+  "storybook": {
+    "placeholder": "Placeholder",
+    "field": "Campo"
   },
   "components": {
     "exerciseListItem": {

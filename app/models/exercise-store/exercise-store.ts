@@ -1,7 +1,7 @@
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
-import { withEnvironment } from "../extensions/with-environment"
 import { ExerciseModel, ExerciseSnapshot } from "../exercise/exercise"
 import { ExercisesApi } from "../../services/api/exercises-api"
+import { withEnvironment } from "../extensions/with-environment"
 
 export const ExerciseStoreModel = types
   .model("ExerciseStore")
@@ -30,7 +30,7 @@ export const ExerciseStoreModel = types
   }))
 
 type ExerciseStoreType = Instance<typeof ExerciseStoreModel>
-export interface ExerciseStore extends ExerciseStoreType { }
+export interface ExerciseStore extends ExerciseStoreType {}
 type ExerciseStoreSnapshotType = SnapshotOut<typeof ExerciseStoreModel>
-export interface ExerciseStoreSnapshot extends ExerciseStoreSnapshotType { }
+export interface ExerciseStoreSnapshot extends ExerciseStoreSnapshotType {}
 export const createExerciseStoreDefaultModel = () => types.optional(ExerciseStoreModel, {})
